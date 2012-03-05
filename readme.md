@@ -1,7 +1,5 @@
 # HTML Encrypter
-#### An encryption and decryption application developed in Java.
-
-The algorithms behind it are:
+#### An encryption and decryption application developed in Java. The application uses a number of algorithms to encrypt and decrypt the HTML source code:
 
    * Blowfish
    * AES
@@ -10,29 +8,21 @@ The algorithms behind it are:
    * MARC 4
    * Escape/Unescape functions
 
-and they are written in JavaScript.
+The algorithms are written in JavaScript. In addition to the encryption and decryption function, the application returns the source code of a website. The user has the ability to upload the encrypted file, using the FTP transfer feature, to his or hers personal website. Additional features are listed below.
 
-In addition to the encryption function, the application returns the source code of a website. The user can use the FTP Transfer function to upload the encrypted file to his or hers personal website, plus many other functions.
-
-## Features
-   * FTP Transfer
-   * Search History
+## Additional features
+   * Search history
    * Log file
-   * System Tray
-   * Show URL
-   * URL Crawl
+   * System tray
+   * Open URL
 
-## Topic
-   * Cryptography, Internet, Source code browsing
+## Supported operating systems 
+   * Windows
+   * Mac OS X
+   * Linux
 
-## Operating System
-   * OS Portable (Source code to work with many OS platforms)
-
-## Translations
+## Available languages
    * English
-
-## Intended Audience
-   * Developers, End Users/Desktop
 
 ## User Interface
    * Java Swing
