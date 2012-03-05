@@ -2,12 +2,13 @@
 #### An encryption and decryption application developed in Java.
 
 The algorithms behind it are:
-    * Blowfish
-    * AES
-    * TEA
-    * Rabbit
-    * MARC 4
-    * Escape/Unescape functions
+
+   * Blowfish
+   * AES
+   * TEA
+   * Rabbit
+   * MARC 4
+   * Escape/Unescape functions
 
 and they are written in JavaScript.
 
