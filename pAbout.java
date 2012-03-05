@@ -26,13 +26,13 @@ public class pAbout{
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Date date = new Date(lastModified); 
 		
-		final String link = "http://htmlencrypter.dap.ro/";
+		final String link = "http://www.htmlencrypter.call-to-action.ro";
 		JLabel ico = new JLabel();
 		JLabel name = new JLabel("<html><b>Name: </b>" + "HTML Encrypter</html>");
 		JLabel autor = new JLabel("<html><b>Author: </b>" + "Stefan Cosma</html>");
 		JLabel versiune = new JLabel("<html><b>Version: </b>" + "1.8.0_" + sdf.format(date) + "</html>");
-		final JLabel email = new JLabel("<html><b>Email: </b>mail@htmlencrypter.dap.ro</html>");
-		final JLabel url = new JLabel("<html><b>URL: </b>" + "<a href='"+ link +"'>www.htmlencrypter.dap.ro</a></html>");
+		final JLabel email = new JLabel("<html><b>Email: </b>steficosma@yahoo.com</html>");
+		final JLabel url = new JLabel("<html><b>URL: </b>" + "<a href='"+ link +"'>www.htmlencrypter.ro</a></html>");
 		JButton exit = new JButton(" X ");
 		
 		JLabel logo = new JLabel();
