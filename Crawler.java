@@ -9,12 +9,12 @@
  */
 
 /** 
- * Autor: Stefan Cosma
- * Denumirea Problemei: Folosirea de Algoritmi de criptare/decriptare pentru ascunderea codului HTML
- * Denumirea Aplicatiei: HTML Encrypter
- * Anul: 2011
- * Ultima versiune stabila: v1.8.0_12.05.2011
- * Status: In dezvoltare
+ * Author: Stefan Cosma
+ * The issue: Using encryption/decryption algorithms to hide the HTML source code
+ * Application name: HTML Encrypter
+ * Year: 2011
+ * Last stable version: v1.8.0_12.05.2011
+ * Status: Stable
  */
 
 package Proiect;
@@ -67,7 +67,7 @@ public class Crawler extends JFrame {
 	static JPanel ad_pan11 = new JPanel(); // panel aditional pt sidebar
 
 	// initializare componente generale
-	static JTextField TF1 = new JTextField("http://htmlencrypter.dap.ro", 30); // texfield
+	static JTextField TF1 = new JTextField("http://htmlencrypter.call-to-action.ro", 30); // texfield
 																				// URL
 	static JTextField TF2 = new JTextField(30); // textfield URL rezultat
 
