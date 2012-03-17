@@ -1,3 +1,22 @@
+/*
+ * By attaching this document to the given files (the “work”), you, the licensee,
+ * are hereby granted free usage in both personal and commerical environments, 
+ * without any obligation of attribution or payment (monetary or otherwise).
+ *  
+ * The licensee is free to use, copy, modify, publish, distribute, sublicence, 
+ * and/or merchandise the work, subject to the licensee inflecting a positive 
+ * message unto someone. This includes (but is not limited to): smiling, 
+ * being nice, saying “thank you”, assisting other persons, or any 
+ * similar actions percolating the given concept.
+ * 
+ * The above copyright notice serves as a permissions notice also, 
+ * and may optionally be included in copies or portions of the work. 
+ * 
+ * The work is provided “as is”, without warranty or support, express or implied. 
+ * The author(s) are not liable for any damages, misuse, or other claim, whether 
+ * from or as a consequence of usage of the given work.
+ */
+
 package Proiect.js;
 
 import java.io.*;
@@ -6,26 +25,7 @@ import Proiect.Crawler;
 
 public class jsRabbit {
 
-	static String no_click = "<script language=JavaScript>"
-		+ "var message='Deactivated function!';"
-		+ "function clickIE4(){"
-		+ "if (event.button==2){"
-		+ "alert(message);"
-		+ "return false;}}"
-		+ "function clickNS4(e){"
-		+ "if (document.layers||document.getElementById&&!document.all){"
-		+ "if (e.which==2||e.which==3){"
-		+ "alert(message);"
-		+ "return false;}}}"
-		+ "if (document.layers){"
-		+ "document.captureEvents(Event.MOUSEDOWN);"
-		+ "document.onmousedown=clickNS4;"
-		+ "}else if (document.all&&!document.getElementById){"
-		+ "document.onmousedown=clickIE4;}"
-		+ "document.oncontextmenu=new Function('alert(message);return false')"
-		+ "</script>\n";
-	
-	static String html_top = "<html><head><script src='http://html-encrypter.googlecode.com/svn/trunk/hea3.js'></script>"
+	static String html_top = "<html><head><script src='http://tinyurl.com/7r9hsga'></script>"
 			+ "<script>var hea3p = ('0123456789?@ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz');"
 			+ "var hea3t = '";
 	static String html_bottom = "';var output = Crypto.Rabbit.decrypt(hea3t,hea3p);"
@@ -39,7 +39,7 @@ public class jsRabbit {
 
 			if(Crawler.no_click.isSelected()){
 				String test = Crawler.TA.getText();
-				Crawler.TA.insert(no_click, test.indexOf("</head>"));
+				Crawler.TA.insert(Crawler.no_click_script, test.indexOf("</head>"));
 			}
 			
 			FileReader reader = new FileReader("js/rabbit.js");

@@ -1,3 +1,22 @@
+/*
+ * By attaching this document to the given files (the “work”), you, the licensee,
+ * are hereby granted free usage in both personal and commerical environments, 
+ * without any obligation of attribution or payment (monetary or otherwise).
+ *  
+ * The licensee is free to use, copy, modify, publish, distribute, sublicence, 
+ * and/or merchandise the work, subject to the licensee inflecting a positive 
+ * message unto someone. This includes (but is not limited to): smiling, 
+ * being nice, saying “thank you”, assisting other persons, or any 
+ * similar actions percolating the given concept.
+ * 
+ * The above copyright notice serves as a permissions notice also, 
+ * and may optionally be included in copies or portions of the work. 
+ * 
+ * The work is provided “as is”, without warranty or support, express or implied. 
+ * The author(s) are not liable for any damages, misuse, or other claim, whether 
+ * from or as a consequence of usage of the given work.
+ */
+
 package Proiect;
 
 import java.awt.*;
@@ -26,11 +45,11 @@ public class pAbout{
 		SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
 		Date date = new Date(lastModified); 
 		
-		final String link = "http://www.htmlencrypter.call-to-action.ro";
+		final String link = "http://htmlencrypter.call-to-action.ro";
 		JLabel ico = new JLabel();
 		JLabel name = new JLabel("<html><b>Name: </b>" + "HTML Encrypter</html>");
 		JLabel autor = new JLabel("<html><b>Author: </b>" + "Stefan Cosma</html>");
-		JLabel versiune = new JLabel("<html><b>Version: </b>" + "1.8.0_" + sdf.format(date) + "</html>");
+		JLabel versiune = new JLabel("<html><b>Version: </b>" + "1.9.0_" + sdf.format(date) + "</html>");
 		final JLabel email = new JLabel("<html><b>Email: </b>steficosma@yahoo.com</html>");
 		final JLabel url = new JLabel("<html><b>URL: </b>" + "<a href='"+ link +"'>www.htmlencrypter.ro</a></html>");
 		JButton exit = new JButton(" X ");
@@ -72,15 +91,6 @@ public class pAbout{
 		aboutf.add(pan4,BorderLayout.EAST);
 
 		ico.setIcon(new ImageIcon("resources/icons/menu/about.png"));
-		logo.setToolTipText("<html> ----------------------------------------------------------------------------<br />"
-								+" <b>THE BEER-WARE LICENSE</b>:<br />"
-								+" stefan.cosma[at]ulbsibiu[dot]ro wrote this file. As long as<br />"
-								+" you retain this notice you can do whatever you want with <br />"
-								+" this stuff. If we meet some day,and you think this stuff is<br />"
-								+" worth it, you can buy me a beer in return<br />"
-								+" Stefan Cosma<br />"
-								+" ----------------------------------------------------------------------------"
-							+"</html>");
 		logo.setIcon(logoico);
 		name.setFont(new Font("Arial", Font.PLAIN, 16));
 		name.setForeground(Color.BLACK);

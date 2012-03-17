@@ -1,20 +1,29 @@
 /*
- * ----------------------------------------------------------------------------
- * "THE BEER-WARE LICENSE":
- * <stefan.cosma[at]ulbsibiu[dot]ro> wrote this file. As long as you retain this 
- * notice you can do whatever you want with this stuff. If we meet some day, 
- * and you think this stuff is worth it, you can buy me a beer in return 
- * Stefan Cosma
- * ----------------------------------------------------------------------------
+ * By attaching this document to the given files (the “work”), you, the licensee,
+ * are hereby granted free usage in both personal and commerical environments, 
+ * without any obligation of attribution or payment (monetary or otherwise).
+ *  
+ * The licensee is free to use, copy, modify, publish, distribute, sublicence, 
+ * and/or merchandise the work, subject to the licensee inflecting a positive 
+ * message unto someone. This includes (but is not limited to): smiling, 
+ * being nice, saying “thank you”, assisting other persons, or any 
+ * similar actions percolating the given concept.
+ * 
+ * The above copyright notice serves as a permissions notice also, 
+ * and may optionally be included in copies or portions of the work. 
+ * 
+ * The work is provided “as is”, without warranty or support, express or implied. 
+ * The author(s) are not liable for any damages, misuse, or other claim, whether 
+ * from or as a consequence of usage of the given work.
  */
 
 /** 
  * Author: Stefan Cosma
- * The issue: Using encryption/decryption algorithms to hide the HTML source code
- * Application name: HTML Encrypter
+ * The problem: Using encryption/decryption algorithms to hide HTML code
+ * Name: HTML Encrypter
  * Year: 2011
- * Last stable version: v1.8.0_12.05.2011
- * Status: Stable
+ * Last stable version: v1.9.0 [17.03.2012]
+ * Status: In development
  */
 
 package Proiect;
@@ -40,9 +49,9 @@ import Proiect.js.jsTEA;
 public class Crawler extends JFrame {
 
 	/**
-	 * Initializare panel-uri
+	 * Create panels
 	 */
-	static JPanel Crw = new JPanel(); // panel principal afisare elemente
+	static JPanel Crw = new JPanel(); // Main panel
 	static JPanel main_North = new JPanel();
 	static JPanel main_Center = new JPanel();
 	static JPanel main_South = new JPanel();
@@ -60,28 +69,23 @@ public class Crawler extends JFrame {
 	static JPanel in_pan42 = new JPanel();
 	static JPanel pan5 = new JPanel();
 	static JPanel in_pan51 = new JPanel();
-	static JPanel West = new JPanel(); // panel principal sidebar
+	static JPanel West = new JPanel(); // Main panel sidebar
 	static JPanel East = new JPanel();
 	static JPanel South = new JPanel();
-	static JPanel ad_pan1 = new JPanel(); // panel aditional pt sidebar
-	static JPanel ad_pan11 = new JPanel(); // panel aditional pt sidebar
+	static JPanel ad_pan1 = new JPanel(); // Additional panel sidebar
+	static JPanel ad_pan11 = new JPanel(); // Additional panel sidebar
 
-	// initializare componente generale
-	static JTextField TF1 = new JTextField("http://htmlencrypter.call-to-action.ro", 30); // texfield
-																				// URL
-	static JTextField TF2 = new JTextField(30); // textfield URL rezultat
+	// Create general components
+	static JTextField TF1 = new JTextField("http://htmlencrypter.call-to-action.ro", 30); // Texfield URL
+	static JTextField TF2 = new JTextField(30); // textfield URL result
 
 	static JLabel LB1 = new JLabel("Insert URL / URI: "); // label URL
-	static JLabel LB2 = new JLabel("The search results are: "); // label
-																	// rezultate
-	static JLabel LB3 = new JLabel("Encryption/decryption method: "); // label
-																		// combobox
-	static JLabel LB4 = new JLabel("HTML Encrypter v1.8.0_12.05.2011"); // label
-																		// versiune
-																		// jos
+	static JLabel LB2 = new JLabel("The search results are: "); // label results
+	static JLabel LB3 = new JLabel("Encryption/decryption method: "); // label combobox
+	static JLabel LB4 = new JLabel("HTML Encrypter v1.9.0 [17.03.2012]"); // label version
 
-	public static JTextArea TA = new JTextArea(20, 50); // afisare rezultate
-	static JTextArea TAlines = new JTextArea(); // afisare count lini
+	public static JTextArea TA = new JTextArea(20, 50); // show results
+	static JTextArea TAlines = new JTextArea(); // show count lines
 	static JScrollPane scroll = new JScrollPane(TA); // scroll textarea
 
 	static JButton but = new JButton("Search"); // buton cautare
@@ -92,7 +96,7 @@ public class Crawler extends JFrame {
 	static JButton maxim = new JButton(" # "); // buton maximizare
 
 	static JComboBox combo = new JComboBox(); // selectare limbaj criptare
-	public static JRadioButton no_click = new JRadioButton("Disable right click");
+	public static JCheckBox no_click = new JCheckBox("Disable right click");
 	static JFileChooser chooser = new JFileChooser("."); // deschide fisier
 	static JProgressBar progbar = new JProgressBar(0, 100); // progress bar
 
@@ -132,16 +136,12 @@ public class Crawler extends JFrame {
 	static JButton upload = new JButton();
 
 	// alte variabile
-	final Clipboard clipboard = getToolkit().getSystemClipboard(); // variabila
-																	// pentru
-																	// buton Cut
-	private static final long serialVersionUID = 1L; // tipul versiunii de
-														// program
+	final Clipboard clipboard = getToolkit().getSystemClipboard(); // variabila pentru buton Cut
+	private static final long serialVersionUID = 1L; // tipul versiunii de program
 	static Font font12 = new Font("Arial", Font.BOLD, 12); // font 12 global
 	static Font font16 = new Font("Arial", Font.BOLD, 16); // font 16 global
 	ComponentMover cm = new ComponentMover(); // variabila mutare fereastra
-	ComponentResizer cr = new ComponentResizer(); // variabila redimensionare
-													// fereastra
+	ComponentResizer cr = new ComponentResizer(); // variabila redimensionare fereastra
 
 	SimpleDateFormat sdf = new SimpleDateFormat("dd_MM_yyyy");
 	Date date = new Date();
@@ -156,12 +156,30 @@ public class Crawler extends JFrame {
 	JPopupMenu popUp = new JPopupMenu();
 	JMenuItem popCopy = new JMenuItem("Copy");
 	JMenuItem popPaste = new JMenuItem("Paste");
-
+	
+	public static String no_click_script = "<script language=JavaScript>"
+		+ "var message='Deactivated function!';"
+		+ "function clickIE4(){"
+		+ "if (event.button==2){"
+		+ "alert(message);"
+		+ "return false;}}"
+		+ "function clickNS4(e){"
+		+ "if (document.layers||document.getElementById&&!document.all){"
+		+ "if (e.which==2||e.which==3){"
+		+ "alert(message);"
+		+ "return false;}}}"
+		+ "if (document.layers){"
+		+ "document.captureEvents(Event.MOUSEDOWN);"
+		+ "document.onmousedown=clickNS4;"
+		+ "}else if (document.all&&!document.getElementById){"
+		+ "document.onmousedown=clickIE4;}"
+		+ "document.oncontextmenu=new Function('alert(message);return false')"
+		+ "</script>\n";
+		
 	public Crawler() {
 		super("HTML Encrypter");
 		setDefaultCloseOperation(EXIT_ON_CLOSE); // in caz de alt+f4
-		setIconImage(Toolkit.getDefaultToolkit().getImage("resources/ico.png")); // icoana
-																					// fereastra
+		setIconImage(Toolkit.getDefaultToolkit().getImage("resources/ico.png")); // icoana fereastra
 		setUndecorated(true); // border fereastra principala
 		getRootPane().setBorder(BorderFactory.createLineBorder(Color.BLACK, 3)); // --||--
 
@@ -170,8 +188,7 @@ public class Crawler extends JFrame {
 		cr.registerComponent(this); // redimensionare fereastra
 		cm.setDragInsets(cr.getDragInsets());
 
-		// com.sun.awt.AWTUtilities.setWindowOpacity(this, 0.8f); //
-		// transparenta fereastra
+		//com.sun.awt.AWTUtilities.setWindowOpacity(this, 0.8f); //transparenta fereastra
 		setLayout(new BorderLayout());
 		add(Crw, BorderLayout.CENTER);
 		add(West, BorderLayout.WEST);
@@ -1257,8 +1274,7 @@ public class Crawler extends JFrame {
 			URL u = new URL(TF1.getText());
 			connection = (HttpURLConnection) u.openConnection();
 			connection.setRequestMethod("HEAD");
-			int code = connection.getResponseCode();// HTTP codul de returnare
-													// -> 200 = OK.
+			int code = connection.getResponseCode();// HTTP codul de returnare -> 200 = OK.
 			TA.append("" + code);
 		} catch (MalformedURLException e) {
 			printException(e);
