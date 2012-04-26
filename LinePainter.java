@@ -1,18 +1,18 @@
 /*
- * By attaching this document to the given files (the “work”), you, the licensee,
+ * By attaching this document to the given files (the ï¿½workï¿½), you, the licensee,
  * are hereby granted free usage in both personal and commerical environments, 
  * without any obligation of attribution or payment (monetary or otherwise).
  *  
  * The licensee is free to use, copy, modify, publish, distribute, sublicence, 
  * and/or merchandise the work, subject to the licensee inflecting a positive 
  * message unto someone. This includes (but is not limited to): smiling, 
- * being nice, saying “thank you”, assisting other persons, or any 
+ * being nice, saying ï¿½thank youï¿½, assisting other persons, or any 
  * similar actions percolating the given concept.
  * 
  * The above copyright notice serves as a permissions notice also, 
  * and may optionally be included in copies or portions of the work. 
  * 
- * The work is provided “as is”, without warranty or support, express or implied. 
+ * The work is provided ï¿½as isï¿½, without warranty or support, express or implied. 
  * The author(s) are not liable for any damages, misuse, or other claim, whether 
  * from or as a consequence of usage of the given work.
  */
@@ -25,13 +25,12 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.text.*;
 
-/*
+/**
  *  Track the movement of the Caret by painting a background line at the
  *  current caret position.
  */
-public class LinePainter
-	implements Highlighter.HighlightPainter, CaretListener, MouseListener, MouseMotionListener
-{
+public class LinePainter implements Highlighter.HighlightPainter,
+		CaretListener, MouseListener, MouseMotionListener {
 	private JTextComponent component;
 
 	private Color color;
@@ -39,137 +38,134 @@ public class LinePainter
 	private Rectangle lastView;
 
 	/*
-	 *  The line color will be calculated automatically by attempting
-	 *  to make the current selection lighter by a factor of 1.2.
-	 *
-	 *  @param component  text component that requires background line painting
+	 * The line color will be calculated automatically by attempting to make the
+	 * current selection lighter by a factor of 1.2.
+	 * 
+	 * @param component text component that requires background line painting
 	 */
-	public LinePainter(JTextComponent component)
-	{
+	public LinePainter(JTextComponent component) {
 		this(component, null);
 		setLighter(component.getSelectionColor());
 	}
 
 	/*
-	 *  Manually control the line color
-	 *
-	 *  @param component  text component that requires background line painting
-	 *  @param color      the color of the background line
+	 * Manually control the line color
+	 * 
+	 * @param component text component that requires background line painting
+	 * 
+	 * @param color the color of the background line
 	 */
-	public LinePainter(JTextComponent component, Color color)
-	{
+	public LinePainter(JTextComponent component, Color color) {
 		this.component = component;
-		setColor( color );
+		setColor(color);
 
-		//  Add listeners so we know when to change highlighting
+		// Add listeners so we know when to change highlighting
 
-		component.addCaretListener( this );
-		component.addMouseListener( this );
-		component.addMouseMotionListener( this );
+		component.addCaretListener(this);
+		component.addMouseListener(this);
+		component.addMouseMotionListener(this);
 
-		//  Turn highlighting on by adding a dummy highlight
+		// Turn highlighting on by adding a dummy highlight
 
-		try
-		{
+		try {
 			component.getHighlighter().addHighlight(0, 0, this);
+		} catch (BadLocationException ble) {
 		}
-		catch(BadLocationException ble) {}
 	}
 
 	/*
-	 *	You can reset the line color at any time
-	 *
-	 *  @param color  the color of the background line
+	 * You can reset the line color at any time
+	 * 
+	 * @param color the color of the background line
 	 */
-	public void setColor(Color color)
-	{
+	public void setColor(Color color) {
 		this.color = color;
 	}
 
 	/*
-	 *  Calculate the line color by making the selection color lighter
-	 *
-	 *  @return the color of the background line
+	 * Calculate the line color by making the selection color lighter
+	 * 
+	 * @return the color of the background line
 	 */
-	public void setLighter(Color color)
-	{
-		int red   = Math.min(211, (int)(color.getRed() * 1.2));
-		int green = Math.min(211, (int)(color.getGreen() * 1.2));
-		int blue  = Math.min(211, (int)(color.getBlue() * 1.2));
+	public void setLighter(Color color) {
+		int red = Math.min(211, (int) (color.getRed() * 1.2));
+		int green = Math.min(211, (int) (color.getGreen() * 1.2));
+		int blue = Math.min(211, (int) (color.getBlue() * 1.2));
 		setColor(new Color(red, green, blue));
 	}
 
-	//  Paint the background highlight
+	// Paint the background highlight
 
-	public void paint(Graphics g, int p0, int p1, Shape bounds, JTextComponent c)
-	{
-		try
-		{
+	public void paint(Graphics g, int p0, int p1, Shape bounds, JTextComponent c) {
+		try {
 			Rectangle r = c.modelToView(c.getCaretPosition());
-			g.setColor( color );
+			g.setColor(color);
 			g.fillRect(0, r.y, c.getWidth(), r.height);
 
 			if (lastView == null)
 				lastView = r;
+		} catch (BadLocationException ble) {
+			System.out.println(ble);
 		}
-		catch(BadLocationException ble) {System.out.println(ble);}
 	}
 
 	/*
-	*   Caret position has changed, remove the highlight
-	*/
-	private void resetHighlight()
-	{
-		//  Use invokeLater to make sure updates to the Document are completed,
-		//  otherwise Undo processing causes the modelToView method to loop.
+	 * Caret position has changed, remove the highlight
+	 */
+	private void resetHighlight() {
+		// Use invokeLater to make sure updates to the Document are completed,
+		// otherwise Undo processing causes the modelToView method to loop.
 
-		SwingUtilities.invokeLater(new Runnable()
-		{
-			public void run()
-			{
-				try
-				{
-					int offset =  component.getCaretPosition();
+		SwingUtilities.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					int offset = component.getCaretPosition();
 					Rectangle currentView = component.modelToView(offset);
 
-					//  Remove the highlighting from the previously highlighted line
+					// Remove the highlighting from the previously highlighted
+					// line
 
-					if (lastView.y != currentView.y)
-					{
-						component.repaint(0, lastView.y, component.getWidth(), lastView.height);
+					if (lastView.y != currentView.y) {
+						component.repaint(0, lastView.y, component.getWidth(),
+								lastView.height);
 						lastView = currentView;
 					}
+				} catch (BadLocationException ble) {
 				}
-				catch(BadLocationException ble) {}
 			}
 		});
 	}
 
-	//  Implement CaretListener
+	// Implement CaretListener
 
-	public void caretUpdate(CaretEvent e)
-	{
+	public void caretUpdate(CaretEvent e) {
 		resetHighlight();
 	}
 
-	//  Implement MouseListener
+	// Implement MouseListener
 
-	public void mousePressed(MouseEvent e)
-	{
+	public void mousePressed(MouseEvent e) {
 		resetHighlight();
 	}
 
-	public void mouseClicked(MouseEvent e) {}
-	public void mouseEntered(MouseEvent e) {}
-	public void mouseExited(MouseEvent e) {}
-	public void mouseReleased(MouseEvent e) {}
+	public void mouseClicked(MouseEvent e) {
+	}
 
-	//  Implement MouseMotionListener
+	public void mouseEntered(MouseEvent e) {
+	}
 
-	public void mouseDragged(MouseEvent e)
-	{
+	public void mouseExited(MouseEvent e) {
+	}
+
+	public void mouseReleased(MouseEvent e) {
+	}
+
+	// Implement MouseMotionListener
+
+	public void mouseDragged(MouseEvent e) {
 		resetHighlight();
 	}
 
-	public void mouseMoved(MouseEvent e) {}
+	public void mouseMoved(MouseEvent e) {
+	}
 }

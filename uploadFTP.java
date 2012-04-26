@@ -1,18 +1,18 @@
 /*
- * By attaching this document to the given files (the “work”), you, the licensee,
+ * By attaching this document to the given files (the ï¿½workï¿½), you, the licensee,
  * are hereby granted free usage in both personal and commerical environments, 
  * without any obligation of attribution or payment (monetary or otherwise).
  *  
  * The licensee is free to use, copy, modify, publish, distribute, sublicence, 
  * and/or merchandise the work, subject to the licensee inflecting a positive 
  * message unto someone. This includes (but is not limited to): smiling, 
- * being nice, saying “thank you”, assisting other persons, or any 
+ * being nice, saying ï¿½thank youï¿½, assisting other persons, or any 
  * similar actions percolating the given concept.
  * 
  * The above copyright notice serves as a permissions notice also, 
  * and may optionally be included in copies or portions of the work. 
  * 
- * The work is provided “as is”, without warranty or support, express or implied. 
+ * The work is provided ï¿½as isï¿½, without warranty or support, express or implied. 
  * The author(s) are not liable for any damages, misuse, or other claim, whether 
  * from or as a consequence of usage of the given work.
  */
@@ -31,29 +31,34 @@ import javax.swing.event.*;
 import javax.swing.filechooser.*;
 import javax.swing.tree.*;
 
+/**
+ * This class opens the FTP upload window that allow the user to upload a file
+ * to his/hers FTP server.
+ * 
+ * @author Stefan Cosma
+ * 
+ */
 public class uploadFTP {
-	
+
 	final JFrame uploadFTP = new JFrame("FTP Transfer");
 	final JFrame tree = new JFrame("Server documents");
-	
+
 	JFileChooser chooserf = new JFileChooser(".");
-	JFileChooser loadf = new JFileChooser(".");
 	public static FileDialog sd = null;
-	
+
 	String filename = null;
 	String filepath = null;
-	
-	static JLabel titleFTP = new JLabel("FTP Transfer");
-	public static JTextField adressf = new JTextField("localhost",35);
-	public static JTextField userf = new JTextField("test",35);
-	public static JPasswordField passf = new JPasswordField("admin",35);
+
+	static JLabel titleFTP = new JLabel("Connection");
+	public static JTextField adressf = new JTextField("", 35);
+	public static JTextField userf = new JTextField("", 35);
+	public static JPasswordField passf = new JPasswordField("", 35);
 	public static JTextField folderf = new JTextField(35);
-				
+
 	JPanel pan1 = new JPanel();
 	JPanel pan2 = new JPanel();
-		JPanel inpan1 = new JPanel();
-		JPanel inpan2 = new JPanel();
-			JPanel inpan21 = new JPanel();
+	JPanel inpan1 = new JPanel();
+	JPanel inpan2 = new JPanel();
 	JPanel pan3 = new JPanel();
 	JPanel pan4 = new JPanel();
 
@@ -67,245 +72,214 @@ public class uploadFTP {
 
 	JButton connect = new JButton("Transfer");
 	JButton browsef = new JButton("Add..");
-	JButton adv = new JButton(" > ");
-	JButton save = new JButton("Save ID");
-	JButton load = new JButton("Load ID");
-	JButton exit = new JButton(" X ");
-		
-	final ComponentMover cm = new ComponentMover();		// muta fereastra
-	Color color = Color.WHITE;
-	
+	JButton adv = new JButton("");
+	JButton exit = new JButton("");
+
+	final ComponentMover cm = new ComponentMover(); // muta fereastra
+
+	public static ImageIcon getImageIcon(String name) {
+		return new ImageIcon(ClassLoader.getSystemResource(name));
+	}
+
 	public uploadFTP() {
-		uploadFTP.setIconImage(Toolkit.getDefaultToolkit().getImage("resources/ico.png"));
+		uploadFTP.setIconImage(Toolkit.getDefaultToolkit().getImage(
+				getClass().getClassLoader().getResource("assets/ico.png")));
 		uploadFTP.setUndecorated(true);
-		uploadFTP.getRootPane().setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		uploadFTP.setSize(400, 280);
-		uploadFTP.setLocationRelativeTo(Crawler.Crw);
+		uploadFTP.getRootPane().setBorder(
+				BorderFactory.createLineBorder(Encrypter.color_black, 2));
+		uploadFTP.setSize(400, 240);
+		uploadFTP.setLocationRelativeTo(Encrypter.Center);
 		uploadFTP.setResizable(false);
 		uploadFTP.setVisible(true);
 		cm.registerComponent(uploadFTP);
-		
+
 		uploadFTP.setLayout(new BorderLayout());
 		pan1.setLayout(new BorderLayout());
 		pan2.setLayout(new BorderLayout());
-			inpan1.setLayout(new GridLayout(6, 2, 0, 10));
-			inpan2.setLayout(new FlowLayout());
-				inpan21.setLayout(new GridLayout(2,0,0,5));
+		inpan1.setLayout(new GridLayout(6, 2, 0, 10));
+		inpan2.setLayout(new GridLayout(1, 2, 20, 0));
 		pan3.setLayout(new BorderLayout());
 		pan4.setLayout(new FlowLayout());
-		
+
 		uploadFTP.add(pan3, BorderLayout.EAST);
-			pan3.add(adv,BorderLayout.SOUTH);
+		pan3.add(adv, BorderLayout.SOUTH);
 		uploadFTP.add(pan1, BorderLayout.NORTH);
-			pan1.add(titleFTP,BorderLayout.WEST);
-			pan1.add(exit,BorderLayout.EAST);
+		pan1.add(titleFTP, BorderLayout.WEST);
+		pan1.add(exit, BorderLayout.EAST);
 		uploadFTP.add(pan2, BorderLayout.CENTER);
-			pan2.add(inpan1, BorderLayout.NORTH);
-				inpan1.add(adress);
-				inpan1.add(adressf);
-				inpan1.add(user);
-				inpan1.add(userf);
-				inpan1.add(pass);
-				inpan1.add(passf);
-				inpan1.add(folder);
-				inpan1.add(folderf);
-				inpan1.add(filen);
-				inpan1.add(filenf);
-				inpan1.add(status);
-			pan2.add(inpan2, BorderLayout.SOUTH);
-				inpan2.add(browsef);
-				inpan2.add(Box.createHorizontalStrut(20));
-				inpan2.add(inpan21);
-					inpan21.add(save);
-					inpan21.add(load);
-				inpan2.add(Box.createHorizontalStrut(20));
-				inpan2.add(connect);
+		pan2.add(inpan1, BorderLayout.NORTH);
+		inpan1.add(adress);
+		inpan1.add(adressf);
+		inpan1.add(user);
+		inpan1.add(userf);
+		inpan1.add(pass);
+		inpan1.add(passf);
+		inpan1.add(folder);
+		inpan1.add(folderf);
+		inpan1.add(filen);
+		inpan1.add(filenf);
+		inpan1.add(status);
+		pan2.add(inpan2, BorderLayout.SOUTH);
+		inpan2.add(browsef);
+		inpan2.add(connect);
 		uploadFTP.add(pan4, BorderLayout.WEST);
 
 		propFTP();
 		actionFTP();
-	}
-	
-	//proprietati elemente uploadFTP
-	public void propFTP(){		
-		uploadFTP.setBackground(color);
-		pan1.setBackground(color);
-		pan1.setBorder(BorderFactory.createEmptyBorder(6, 5, 10, 5));
-		pan2.setBackground(color);
-			inpan1.setBackground(color);
-			inpan2.setBackground(color);
-				inpan21.setBackground(color);
-				inpan21.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		pan3.setBackground(color);
-		pan4.setBackground(color);
-				
-		adress.setForeground(Color.BLACK);
-		user.setForeground(Color.BLACK);
-		pass.setForeground(Color.BLACK);
-		folder.setForeground(Color.BLACK);
-		filen.setForeground(Color.BLACK);
-		
-		adressf.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		adressf.setSelectionColor(Color.BLACK);
-		adressf.setSelectedTextColor(Color.WHITE);
-		
-		userf.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		userf.setSelectionColor(Color.BLACK);
-		userf.setSelectedTextColor(Color.WHITE);
-		
-		passf.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		passf.setSelectionColor(Color.BLACK);
-		passf.setSelectedTextColor(Color.WHITE);
-		
-		folderf.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		folderf.setSelectionColor(Color.BLACK);
-		folderf.setSelectedTextColor(Color.WHITE);
-		
-		status.setHorizontalAlignment(SwingConstants.RIGHT);
-		
-		titleFTP.setForeground(Color.BLACK);
-		titleFTP.setFont(new Font("Arial", Font.BOLD, 14));
-		titleFTP.setIcon(new ImageIcon("resources/icons/menu/upload.png"));
 
-		connect.setBackground(color);
-		connect.setBorder(BorderFactory.createEmptyBorder());
-		connect.setForeground(Color.BLACK);
-		connect.setFont(Crawler.font16);
-		connect.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		browsef.setBackground(color);
-		browsef.setBorder(BorderFactory.createEmptyBorder());
-		browsef.setForeground(Color.BLACK);
-		browsef.setFont(Crawler.font16);
-		browsef.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		exit.setBackground(Color.WHITE);
-		exit.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
-		exit.setForeground(Color.BLACK);
-		exit.setFont(new Font("Arial", Font.BOLD, 14));
-		
-		save.setBackground(Color.WHITE);
-		save.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-		save.setIcon(new ImageIcon("resources/icons/menu/save.png"));
-		save.setForeground(Color.BLACK);
-		save.setFont(new Font("Arial", Font.BOLD, 14));
-		save.setToolTipText("<html>&#8226; Save login details</html>");
-		save.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
-		load.setBackground(Color.WHITE);
-		load.setBorder(BorderFactory.createLineBorder(Color.WHITE, 2));
-		load.setIcon(new ImageIcon("resources/icons/menu/load.png"));
-		load.setForeground(Color.BLACK);
-		load.setFont(new Font("Arial", Font.BOLD, 14));
-		load.setToolTipText("<html>&#8226; Load login details</html>");
-		load.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-
-		adv.setBackground(Color.WHITE);
-		adv.setBorder(BorderFactory.createMatteBorder(2,2,0,0, Color.BLACK));
-		adv.setForeground(Color.BLACK);
-		adv.setFont(new Font("Arial",Font.BOLD,14));
-		adv.setToolTipText("<html>&#8226; Display server files</html>");
-		adv.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
-		
-		chooserf.addChoosableFileFilter(new FileNameExtensionFilter("Text", "txt"));
-	    chooserf.addChoosableFileFilter(new FileNameExtensionFilter("HTML", "html"));
-	    chooserf.setAcceptAllFileFilterUsed(false);
-	    loadf.addChoosableFileFilter(new FileNameExtensionFilter("HEU","heu"));
-	    loadf.setAcceptAllFileFilterUsed(false);
-		
-	}
-	
-	//salvare detalii conectare
-	public void saveUser(){
+		/* BOF Load state */
 		try {
-			String pass = String.valueOf(passf.getPassword());
-			String adr = "Address:" + adressf.getText() + "\r\n";
-			String usr = "User:" + userf.getText() + "\r\n";
-			String pas = "Password:" + pass + "\r\n";
-			if (adr.length() > 0 && usr.length() > 0) {
-				sd = new FileDialog(sd, "Save Login Details",FileDialog.SAVE);
-				sd.setFile(userf.getText() + "ID.heu");
-				sd.setDirectory(".");
-				sd.setVisible(true);
-				sd.setLocationRelativeTo(null);
-				String path = sd.getDirectory() + sd.getFile();
-				FileOutputStream fos = new FileOutputStream(path);
-				byte[] a = adr.getBytes();
-				byte[] u = usr.getBytes();
-				byte[] p = pas.getBytes();
-				fos.write(a);
-				fos.write(u);
-				fos.write(p);
-				fos.close();
-			}
-		} catch (Exception e1) {}
+			FileInputStream fileStream = new FileInputStream(ClassLoader
+					.getSystemResource("upload.prop").getPath());
+			ObjectInputStream os = new ObjectInputStream(fileStream);
+			adressf.setText(os.readObject().toString());
+			userf.setText(os.readObject().toString());
+			passf.setText(os.readObject().toString());
+			os.close();
+			fileStream.close();
+		} catch (FileNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		}
+		/* EOF Load state */
 	}
-	
-	//incarcare detalii conectare
-	public void loadUser() {
-		adressf.setText("");
-		userf.setText("");
-		passf.setText("");
-		String pass = String.valueOf(passf.getPassword());
-		int retval = loadf.showOpenDialog(loadf);
-        if (retval == JFileChooser.APPROVE_OPTION) {
-            File inFile = loadf.getSelectedFile();
-            try {
-                FileReader fr = new FileReader(inFile);
-                BufferedReader bufRdr = new BufferedReader(fr);
-                String line = null;
-                while ((line = bufRdr.readLine()) != null){
-                	if(line.startsWith("Address:" + adressf.getText())){
-                		adressf.setText(line.toString().substring(7));
-                	}
-                	if(line.startsWith("User:" + userf.getText())){
-                		userf.setText(line.toString().substring(5));
-                	}
-                	if(line.startsWith("Password:" + pass)){
-                		passf.setText(line.toString().substring(7));
-                	}
-                }
-                bufRdr.close();
-            } catch (IOException ioex) {}
-        }
-    }
-	
-	//actiuni elemente uploadFTP
-	public void actionFTP(){
-		//schimbare text in adress textfiled si titlu in acelasi timp
+
+	public void propFTP() {
+		uploadFTP.setBackground(Encrypter.color_light);
+		pan1.setBackground(Encrypter.color_light);
+		pan1.setBorder(BorderFactory.createEmptyBorder(6, 5, 10, 5));
+		pan2.setBackground(Encrypter.color_light);
+		inpan1.setBackground(Encrypter.color_light);
+		inpan2.setBackground(Encrypter.color_light);
+		pan3.setBackground(Encrypter.color_light);
+		pan4.setBackground(Encrypter.color_light);
+
+		adress.setForeground(Encrypter.color_blue);
+		user.setForeground(Encrypter.color_blue);
+		pass.setForeground(Encrypter.color_blue);
+		folder.setForeground(Encrypter.color_blue);
+		filen.setForeground(Encrypter.color_blue);
+
+		adressf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0,
+				Encrypter.color_dark));
+		adressf.setSelectionColor(Encrypter.color_black);
+		adressf.setSelectedTextColor(Encrypter.color_white);
+		adressf.setBackground(Encrypter.color_light);
+
+		userf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0,
+				Encrypter.color_dark));
+		userf.setSelectionColor(Encrypter.color_black);
+		userf.setSelectedTextColor(Encrypter.color_white);
+		userf.setBackground(Encrypter.color_light);
+
+		passf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0,
+				Encrypter.color_dark));
+		passf.setSelectionColor(Encrypter.color_black);
+		passf.setSelectedTextColor(Encrypter.color_white);
+		passf.setBackground(Encrypter.color_light);
+
+		folderf.setBorder(BorderFactory.createMatteBorder(0, 0, 2, 0,
+				Encrypter.color_dark));
+		folderf.setSelectionColor(Encrypter.color_black);
+		folderf.setSelectedTextColor(Encrypter.color_white);
+		folderf.setBackground(Encrypter.color_light);
+
+		status.setHorizontalAlignment(SwingConstants.RIGHT);
+
+		ImageIcon title_icon = getImageIcon("assets/icons/upload.png");
+		titleFTP.setForeground(Encrypter.color_blue);
+		titleFTP.setFont(Encrypter.font16);
+		titleFTP.setIcon(title_icon);
+
+		connect.setBackground(Encrypter.color_light);
+		connect.setBorder(BorderFactory.createEmptyBorder());
+		connect.setForeground(Encrypter.color_black);
+		connect.setFont(Encrypter.font16);
+		connect.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		connect.setToolTipText("Transfer File");
+
+		browsef.setBackground(Encrypter.color_light);
+		browsef.setBorder(BorderFactory.createEmptyBorder());
+		browsef.setForeground(Encrypter.color_black);
+		browsef.setFont(Encrypter.font16);
+		browsef.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+		browsef.setToolTipText("Add file");
+
+		ImageIcon exit_icon = getImageIcon("assets/icons/exit.png");
+		exit.setBackground(Encrypter.color_light);
+		exit.setBorder(BorderFactory.createLineBorder(Encrypter.color_dark, 0));
+		exit.setForeground(Encrypter.color_black);
+		exit.setFont(Encrypter.font16);
+		exit.setIcon(exit_icon);
+		exit.setToolTipText("Exit");
+
+		ImageIcon adv_icon = getImageIcon("assets/icons/adv_ftp.png");
+		adv.setIcon(adv_icon);
+		adv.setBackground(Encrypter.color_light);
+		adv.setBorder(BorderFactory.createLineBorder(Encrypter.color_light, 0));
+		adv.setFont(Encrypter.font16);
+		adv.setToolTipText("Display server files");
+		adv.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR));
+
+		chooserf.addChoosableFileFilter(new FileNameExtensionFilter("Text",
+				"txt"));
+		chooserf.addChoosableFileFilter(new FileNameExtensionFilter("HTM",
+				"htm"));
+		chooserf.addChoosableFileFilter(new FileNameExtensionFilter("XHTML",
+				"xhtml"));
+		chooserf.addChoosableFileFilter(new FileNameExtensionFilter("HTML",
+				"html"));
+		chooserf.setAcceptAllFileFilterUsed(false);
+	}
+
+	/**
+	 * Save State
+	 */
+	public void saveState() {
+		try {
+			String index1 = adressf.getText();
+			String index2 = userf.getText();
+			String index3 = String.valueOf(passf.getPassword());
+			FileOutputStream fileStream = new FileOutputStream(ClassLoader
+					.getSystemResource("upload.prop").getPath());
+			ObjectOutputStream os = new ObjectOutputStream(fileStream);
+			os.writeObject(index1);
+			os.writeObject(index2);
+			os.writeObject(index3);
+			os.close();
+			fileStream.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void actionFTP() {
 		adressf.addCaretListener(new CaretListener() {
 			public void caretUpdate(CaretEvent e) {
 				InetAddress thisIp;
 				try {
 					thisIp = InetAddress.getLocalHost();
-					titleFTP.setText("FTP Transfer: " + thisIp.getHostAddress() + " -> " + adressf.getText());
+					titleFTP.setText("Connection: " + thisIp.getHostAddress()
+							+ " -> " + adressf.getText());
 				} catch (UnknownHostException e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
-			    
+
 		exit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
+				saveState();
 				uploadFTP.dispose();
 				tree.dispose();
 			}
 		});
 
-		save.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				saveUser();
-			}
-		});
-		
-		load.addActionListener(new ActionListener() {
-			
-			public void actionPerformed(ActionEvent e) {
-				loadUser();
-			}
-		});
-		
 		connect.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
@@ -313,171 +287,208 @@ public class uploadFTP {
 				FileInputStream fis = null;
 				String pass = String.valueOf(passf.getPassword());
 				try {
-					if(filename == null){
+					if (filename == null) {
 						status.setText("File does not exist!");
-					}
-					else{
-						client.connect(adressf.getText());						//adresa
-						client.login(userf.getText(),pass);						//user si parola
-						if(client.isConnected()){
+					} else {
+						// Server address
+						client.connect(adressf.getText());
+						// Login credentials
+						client.login(userf.getText(), pass);
+						if (client.isConnected()) {
 							status.setText("Succesfull transfer!");
-							client.setFileType(FTP.BINARY_FILE_TYPE);			//tipul fisierului
-							File file = new File(filepath);						//locatia fisierului
-							fis = new FileInputStream(file);					//deschide un stream pentru fisier
-							client.changeWorkingDirectory(folderf.getText());	//schimba directorul pe server
-							client.storeFile(filename, fis);					//retine fisierul pe server
-						}
-						else{
-							status.setText("Filed transfer!");
+							// File type
+							client.setFileType(FTP.BINARY_FILE_TYPE);
+							// File location
+							File file = new File(filepath);
+							fis = new FileInputStream(file);
+							// Change the folder on the server
+							client.changeWorkingDirectory(folderf.getText());
+							// Save the file on the server
+							client.storeFile(filename, fis);
+						} else {
+							status.setText("Transfer failed!");
 						}
 					}
 					client.logout();
-				} 
-				catch (IOException e1){
-					Crawler.printException(e1);
-				} 
-				finally {
+				} catch (IOException e1) {
+					Encrypter.printException(e1);
+				} finally {
 					try {
-						if (fis != null) {fis.close();
+						if (fis != null) {
+							fis.close();
 						}
 						client.disconnect();
-					} catch (IOException e1){
-						Crawler.printException(e1);
+					} catch (IOException e1) {
+						Encrypter.printException(e1);
 					}
 				}
 			}
 		});
-		
+
 		browsef.addActionListener(new ActionListener() {
-			
+
 			public void actionPerformed(ActionEvent e) {
 				int retval = chooserf.showOpenDialog(chooserf);
-			    if (retval == JFileChooser.APPROVE_OPTION) {
-			    	   status.setText("");
-			           filename = chooserf.getSelectedFile().getName().toString();
-			           filepath = chooserf.getSelectedFile().getPath();
-			           filenf.setText(chooserf.getSelectedFile().getName().toString());
-			    }
+				if (retval == JFileChooser.APPROVE_OPTION) {
+					status.setText("");
+					filename = chooserf.getSelectedFile().getName().toString();
+					filepath = chooserf.getSelectedFile().getPath();
+					filenf.setText(chooserf.getSelectedFile().getName()
+							.toString());
+				}
 			}
 		});
-		
+
 		adv.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent e) {
-				
-				tree.setSize(220,uploadFTP.getHeight());
+
+				tree.setSize(220, uploadFTP.getHeight());
 				tree.setLocation(uploadFTP.getX() + 405, uploadFTP.getY());
 				tree.setResizable(false);
-				tree.setIconImage(Toolkit.getDefaultToolkit().getImage("resources/ico.png"));
+				tree.setIconImage(Toolkit.getDefaultToolkit().getImage(
+						getClass().getClassLoader().getResource(
+								"assets/ico.png")));
 				tree.setUndecorated(true);
-				tree.getRootPane().setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+				tree.getRootPane().setBorder(
+						BorderFactory.createLineBorder(Encrypter.color_black, 2));
 				tree.setVisible(true);
 				tree.setLayout(new BorderLayout());
-				
+
 				JLabel labeltree = new JLabel("Server documents");
 				labeltree.setOpaque(true);
-				labeltree.setBackground(Color.WHITE);
-				labeltree.setBorder(BorderFactory.createMatteBorder(8, 10, 10, 0, Color.WHITE));
-				labeltree.setForeground(Color.BLACK);
-				labeltree.setFont(new Font("Arial", Font.BOLD, 14));
-				
-				JButton refresh = new JButton("Refresh");
-				refresh.setBackground(Color.WHITE);
+				labeltree.setBackground(Encrypter.color_light);
+				labeltree.setBorder(BorderFactory.createMatteBorder(8, 10, 10,
+						0, Encrypter.color_light));
+				labeltree.setForeground(Encrypter.color_blue);
+				labeltree.setFont(Encrypter.font16);
+
+				JButton refresh = new JButton("");
+				ImageIcon refresh_icon = getImageIcon("assets/icons/refresh.png");
+				refresh.setIcon(refresh_icon);
+				refresh.setBackground(Encrypter.color_light);
 				refresh.setBorder(BorderFactory.createEmptyBorder(0, 0, 5, 0));
-				refresh.setForeground(Color.BLACK);
-				refresh.setFont(Crawler.font16);
-				
+				refresh.setForeground(Encrypter.color_black);
+				refresh.setFont(Encrypter.font16);
+				refresh.setCursor(Cursor
+						.getPredefinedCursor(Cursor.HAND_CURSOR));
+
 				final FTPClient client = new FTPClient();
-				DefaultMutableTreeNode top = new DefaultMutableTreeNode(adressf.getText());
+				DefaultMutableTreeNode top = new DefaultMutableTreeNode(adressf
+						.getText());
 				DefaultMutableTreeNode files = null;
 				DefaultMutableTreeNode leaf = null;
-				
+
 				final JTree tree_view = new JTree(top);
-				tree_view.setForeground(Color.BLACK);
-				tree_view.setBorder(BorderFactory.createEmptyBorder(0, 10,0,0));
-				tree_view.putClientProperty("JTree.lineStyle", "None");			//tipul liniei 
+				tree_view.setForeground(Encrypter.color_black);
+				tree_view.setBorder(BorderFactory
+						.createEmptyBorder(0, 10, 0, 0));
+				tree_view.putClientProperty("JTree.lineStyle", "None");
+				tree_view.setBackground(Encrypter.color_light);
 				JScrollPane scrolltree = new JScrollPane(tree_view);
-				
-				String pass = String.valueOf(passf.getPassword());
+				scrolltree.setBackground(Encrypter.color_light);
+				scrolltree.getVerticalScrollBar().setPreferredSize(
+						new Dimension(0, 0));
+
+				UIManager.put("Tree.textBackground", Encrypter.color_light);
+				UIManager.put("Tree.selectionBackground", Encrypter.color_blue);
+				UIManager.put("Tree.selectionBorderColor", Encrypter.color_blue);
+
+				tree_view.updateUI();
+
+				final String pass = String.valueOf(passf.getPassword());
 				try {
-					client.connect(adressf.getText()); 		// adresa
-					client.login(userf.getText(), pass); 	// user si parola
+					client.connect(adressf.getText());
+					client.login(userf.getText(), pass);
 					client.enterLocalPassiveMode();
 					if (client.isConnected()) {
 						try {
 							FTPFile[] ftpFiles = client.listFiles();
 							for (FTPFile ftpFile : ftpFiles) {
-								files = new DefaultMutableTreeNode(ftpFile.getName());
+								files = new DefaultMutableTreeNode(ftpFile
+										.getName());
 								top.add(files);
-							if(ftpFile.getType() == FTPFile.DIRECTORY_TYPE){
-								FTPFile[] ftpFiles1 = client.listFiles(ftpFile.getName());
-								for (FTPFile ftpFile1 : ftpFiles1) {
-									leaf = new DefaultMutableTreeNode(ftpFile1.getName());
-									files.add(leaf);
+								if (ftpFile.getType() == FTPFile.DIRECTORY_TYPE) {
+									FTPFile[] ftpFiles1 = client
+											.listFiles(ftpFile.getName());
+									for (FTPFile ftpFile1 : ftpFiles1) {
+										leaf = new DefaultMutableTreeNode(
+												ftpFile1.getName());
+										files.add(leaf);
 									}
 								}
-							}	
-						} catch (IOException e1) {Crawler.printException(e1);}
+							}
+						} catch (IOException e1) {
+							Encrypter.printException(e1);
+						}
+						client.disconnect();
 					} else {
 						status.setText("Failed connection!");
 					}
-				} catch (IOException e1) {Crawler.printException(e1);}
-				finally {
-					try {client.disconnect();}
-					catch (IOException e1){Crawler.printException(e1);}
-				}
-						
-				tree.add(labeltree,BorderLayout.NORTH);
-				tree.add(scrolltree, BorderLayout.CENTER);
-				tree.add(refresh,BorderLayout.SOUTH);
-				
-				// pentru miscare frame-uri simultan
-				uploadFTP.addComponentListener(new ComponentListener() {
-					
-					public void componentMoved(ComponentEvent e) {
-						tree.setLocation(uploadFTP.getX() + 405, uploadFTP.getY());
+				} catch (IOException e1) {
+					Encrypter.printException(e1);
+				} finally {
+					try {
+						client.disconnect();
+					} catch (IOException e1) {
+						Encrypter.printException(e1);
 					}
-					public void componentShown(ComponentEvent e) {}
-					public void componentResized(ComponentEvent e) {}
-					public void componentHidden(ComponentEvent e) {}
+				}
+
+				tree.add(labeltree, BorderLayout.NORTH);
+				tree.add(scrolltree, BorderLayout.CENTER);
+				tree.add(refresh, BorderLayout.SOUTH);
+
+				uploadFTP.addComponentListener(new ComponentListener() {
+
+					public void componentMoved(ComponentEvent e) {
+						tree.setLocation(uploadFTP.getX() + 405,
+								uploadFTP.getY());
+					}
+
+					public void componentShown(ComponentEvent e) {
+					}
+
+					public void componentResized(ComponentEvent e) {
+					}
+
+					public void componentHidden(ComponentEvent e) {
+					}
 				});
-				
-				// pentru focus simultan pe frame-uri
+
 				uploadFTP.addWindowListener(new WindowListener() {
 					public void windowActivated(WindowEvent e) {
-						tree.toFront();						
+						tree.toFront();
 					}
-					public void windowOpened(WindowEvent e) {}
-					public void windowIconified(WindowEvent e) {}
-					public void windowDeiconified(WindowEvent e) {}
-					public void windowDeactivated(WindowEvent e) {}
-					public void windowClosing(WindowEvent e) {}
-					public void windowClosed(WindowEvent e) {}
+
+					public void windowOpened(WindowEvent e) {
+					}
+
+					public void windowIconified(WindowEvent e) {
+					}
+
+					public void windowDeiconified(WindowEvent e) {
+					}
+
+					public void windowDeactivated(WindowEvent e) {
+					}
+
+					public void windowClosing(WindowEvent e) {
+					}
+
+					public void windowClosed(WindowEvent e) {
+					}
 				});
-				
-//				tree.addWindowListener(new WindowListener() {
-//					public void windowActivated(WindowEvent e) {
-//						uploadFTP.toFront();						
-//					}
-//					public void windowOpened(WindowEvent e) {}
-//					public void windowIconified(WindowEvent e) {}
-//					public void windowDeiconified(WindowEvent e) {}
-//					public void windowDeactivated(WindowEvent e) {}
-//					public void windowClosing(WindowEvent e) {}
-//					public void windowClosed(WindowEvent e) {}
-//				});
-							
+
 				refresh.addActionListener(new ActionListener() {
-					
+
 					public void actionPerformed(ActionEvent e) {
-						uploadFTP.dispose();
 						tree.dispose();
-						uploadFTP.setVisible(true);
 						tree.setVisible(true);
 					}
 				});
 			}
 		});
-		
+
 	}
 }
