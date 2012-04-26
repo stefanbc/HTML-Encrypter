@@ -40,7 +40,7 @@ import Proiect.js.*;
  * <b>URL</b>: <a
  * href="http://htmlencrypter.call-to-action.ro">www.htmlencrypter.ro</a> <br>
  * <b>Year</b>: 2011 - 2012 <br>
- * <b>Last stable version</b>: v2.0_alpha [12.04.2012] <br>
+ * <b>Last stable version</b>: 2.0 [25.04.2012] <br>
  * <b>Status</b>: In development
  */
 public class Encrypter extends JFrame {
