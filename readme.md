@@ -10,12 +10,15 @@ An encryption and decryption application developed in Java. The application uses
 
 In addition to the encryption and decryption functions, the application also returns the source code of a website. The user has the ability to upload the encrypted file, using the FTP transfer feature, to his or hers personal website. Additional features are listed below.
 
+## New features in version 2.0
+   * New resigned interface
+   * One time encryption
+   * Source code edit feature
+   * Check for new app updates
+   * Save user preferences
+   * Undo/Redo functions
+
 ## Additional features
-   * One time encryption [NEW]
-   * Source code edit feature [NEW]
-   * Check for new app updates [NEW]
-   * Save user preferences [NEW] 
-   * Undo/Redo functions [NEW]
    * Search history
    * Log file
    * System tray
@@ -33,4 +36,5 @@ In addition to the encryption and decryption functions, the application also ret
    * Java Swing
 
 ## Programming Languages
-   * Java, JavaScript
+   * Java
+   * JavaScript
