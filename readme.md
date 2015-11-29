@@ -1,3 +1,5 @@
+## NO LONGER MAINTAINED
+
 # HTML Encrypter
 An encryption and decryption application developed in Java. The application uses a number of algorithms to encrypt and decrypt the HTML source code:
 
